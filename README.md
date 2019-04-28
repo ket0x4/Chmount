@@ -10,7 +10,8 @@ wget https://raw.githubusercontent.com/TheDoop/Chmount/master/chmount && chmod +
 ```
 
 #### Or
-just Install magisk module
+just Install magisk module: 
+[Download](https://github.com/TheDoop/Chmount/releases/tag/v.1.0.2)
 
 ## Usage
 
