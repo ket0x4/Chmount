@@ -9,6 +9,9 @@ su
 wget https://raw.githubusercontent.com/TheDoop/Chmount/master/chmount && chmod +x chmount
 ```
 
+#### Or
+just Install magisk module
+
 ## Usage
 
 ```
