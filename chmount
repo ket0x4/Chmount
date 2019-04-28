@@ -1,0 +1,42 @@
+#!/system/bin/sh
+if [ -n "$1" ]; then
+	#ln -s /dev/graphics/fb0 /dev/fb0 2> /dev/null
+	if [ $(mount | grep "$1" ; echo $?) -ne 0 ]; then
+		mkdir $1/dev 2> /dev/null
+		mkdir $1/dev/pts 2> /dev/null
+		mkdir $1/proc 2> /dev/null
+		mkdir $1/sys 2> /dev/null
+		mkdir $1/sdcard 2> /dev/null
+		mkdir $1/system 2> /dev/null
+		mkdir $1/xbin 2> /dev/null
+		mkdir $1/media 2> /dev/null
+		mount -o bind /dev $1/dev
+		mount -o bind /dev/pts $1/dev/pts
+		mount -o bind /proc $1/proc
+		mount -o bind /sys $1/sys
+		mount -o bind /sdcard $1/sdcard
+		mount -o bind /system $1/system
+		mount -o bind /sbin $1/xbin
+		mount -o bind /data $1/media
+		#mount -o dev,exec,remount /data
+	fi
+	export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/xbin:${PATH}
+	export TERMINFO=/system/etc/terminfo
+	export TERM=linux
+	export HOME=/root
+	export USER=root
+	export TMPDIR=/tmp
+	#export LD_PRELOAD=/lib/libandroid_shmem.so
+	unset LD_PRELOAD
+	rm -f $1/etc/resolv.conf
+	echo "nameserver 9.9.9.9" > $1/etc/resolv.conf
+	clear
+	
+	if [ -n "$2" ]; then
+	 		chroot $1 $2
+	else
+		chroot $1 /bin/bash
+	fi
+else
+	echo "Lutfen bi chroot klasoru secin"
+fi
